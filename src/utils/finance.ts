@@ -27,11 +27,13 @@ export function formatoMoneda(monto: number, moneda: string = 'COP'): string {
 }
 
 export function fechaISO(fecha: Date = new Date()): string {
-  return fecha.toISOString().slice(0, 10);
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  return `${fecha.getFullYear()}-${pad(fecha.getMonth() + 1)}-${pad(fecha.getDate())}`;
 }
 
 export function horaISO(fecha: Date = new Date()): string {
-  return fecha.toTimeString().slice(0, 8);
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  return `${pad(fecha.getHours())}:${pad(fecha.getMinutes())}:${pad(fecha.getSeconds())}`;
 }
 
 export function mesPrefijo(fecha: Date = new Date()): string {
@@ -67,6 +69,13 @@ export function formatoCuentaRegresiva(fechaDisponible: Date, ahora: Date = new 
 export function sumarMesesISO(fechaISOStr: string, meses: number): string {
   const [anio, mes, dia] = fechaISOStr.split('-').map(Number);
   const fecha = new Date(anio, mes - 1 + meses, dia);
+  const expectedMonth = (mes - 1 + meses) % 12;
+  const actualMonth = fecha.getMonth();
+
+  if (actualMonth !== (expectedMonth >= 0 ? expectedMonth : expectedMonth + 12)) {
+    fecha.setDate(0);
+  }
+
   return fechaISO(fecha);
 }
 
