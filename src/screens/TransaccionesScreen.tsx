@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import { View, Text, Pressable, FlatList } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -49,10 +50,11 @@ export default function TransaccionesScreen() {
 
   return (
     <View className="flex-1 bg-bg-light dark:bg-bg-dark" style={{ paddingTop: insets.top + 16 }}>
-      <FlatList
+      <FlashList
         data={transacciones}
         keyExtractor={(item) => String(item.id)}
         renderItem={renderItem}
+        estimatedItemSize={70}
         ListEmptyComponent={
           <View className="items-center px-8 pt-16">
             <Text className="text-center text-base text-text-secondary">
@@ -60,7 +62,6 @@ export default function TransaccionesScreen() {
             </Text>
           </View>
         }
-        contentContainerStyle={{ flexGrow: 1 }}
       />
     </View>
   );
