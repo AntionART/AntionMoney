@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
-import { View, Text, Pressable, FlatList, useColorScheme } from 'react-native';
+import { View, Text, Pressable, useColorScheme } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -267,10 +268,11 @@ export default function HomeScreen() {
           <Text className="mb-1 text-sm font-medium text-text-secondary">
             ÚLTIMOS GASTOS
           </Text>
-          <FlatList
+          <FlashList
             data={ultimas}
             keyExtractor={(item) => String(item.id)}
             renderItem={renderItem}
+            estimatedItemSize={50}
             ListEmptyComponent={
               <Text className="pt-6 text-sm text-text-secondary">
                 Aún no has registrado gastos hoy.

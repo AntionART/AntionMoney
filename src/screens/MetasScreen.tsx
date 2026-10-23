@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import { View, Text, Pressable, FlatList, useColorScheme } from 'react-native';
+import { View, Text, Pressable, useColorScheme } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -95,11 +96,12 @@ export default function MetasScreen() {
 
   return (
     <View className="flex-1 bg-bg-light dark:bg-bg-dark">
-      <FlatList
+      <FlashList
         data={metas}
         keyExtractor={(item) => String(item.id)}
         renderItem={renderMeta}
-        contentContainerStyle={{ padding: 24, paddingTop: insets.top + 16, flexGrow: 1 }}
+        estimatedItemSize={120}
+        contentContainerStyle={{ padding: 24, paddingTop: insets.top + 16, flexGrow: 1 } as any}
         ListEmptyComponent={
           <View className="items-center pt-16">
             <Text className="text-center text-base text-text-secondary">

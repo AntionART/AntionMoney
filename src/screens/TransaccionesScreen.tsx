@@ -62,6 +62,7 @@ export default function TransaccionesScreen() {
             </Text>
           </View>
         }
+        contentContainerStyle={{ flexGrow: 1 } as any}
       />
     </View>
   );
